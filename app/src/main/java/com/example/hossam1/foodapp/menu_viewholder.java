@@ -10,15 +10,15 @@ import android.widget.TextView;
  */
 
 public class menu_viewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
-   ImageView image ;
-   TextView name ;
+   ImageView Image ;
+   TextView Name ;
    ItemClickListener itemClickListener ;
 
     public menu_viewholder(View itemView) {
         super(itemView);
 
-        image=itemView.findViewById(R.id.menu_img);
-        name=itemView.findViewById(R.id.menu_name);
+        Image=itemView.findViewById(R.id.menu_img);
+        Name=itemView.findViewById(R.id.menu_name);
         itemView.setOnClickListener(this);
 
     }

@@ -1,5 +1,6 @@
 package com.example.hossam1.foodapp;
 
+import android.content.Intent;
 import android.icu.util.ULocale;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +43,7 @@ public class Home extends AppCompatActivity
     TextView curent_user_name ;
     RecyclerView recyclerView ;
     CircleImageView profile_image;
+    FirebaseRecyclerAdapter<category,menu_viewholder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,21 +86,23 @@ public class Home extends AppCompatActivity
 
     private void load_pic_recycler() {
 
-        final FirebaseRecyclerAdapter<category,menu_viewholder> adapter =
-                new FirebaseRecyclerAdapter<category, menu_viewholder>
+         adapter = new FirebaseRecyclerAdapter<category, menu_viewholder>
                         (category.class,R.layout.menu_item,menu_viewholder.class,databse_category) {
                     @Override
                     protected void populateViewHolder(menu_viewholder viewHolder, final category model, int position) {
 
-                        viewHolder.name.setText(model.getName());
-                        Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.image);
+                        viewHolder.Name.setText(model.getName());
+                        Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.Image);
                         final category clickitem = model;
 
                         viewHolder.setItemClickListener(new ItemClickListener() {
                             @Override
                             public void onclick(View view, int position, Boolean isLongClick) {
 
-                                Toast.makeText(Home.this, "you clicked" + clickitem.getName(), Toast.LENGTH_SHORT).show();
+                                Intent intent =new Intent(Home.this,Food.class);
+                                intent.putExtra("ctegoryid",adapter.getRef(position).getKey());
+                                startActivity(intent);
+
                             }
                         });
                     }

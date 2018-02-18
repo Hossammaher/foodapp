@@ -43,10 +43,12 @@
             app:met_floatingLabelTextSize="17sp"
             android:id="@+id/login_Email"
             app:met_singleLineEllipsis="true"
+            android:text="h@gmail.com"
             android:inputType="textEmailAddress"
             />
 
         <com.rengwuxian.materialedittext.MaterialEditText
+            android:text="123456"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
