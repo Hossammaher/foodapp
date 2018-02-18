@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/my_bg"
+    tools:context="com.example.hossam1.foodapp.complete_user_info">
+
+
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pro_bar_info"
+        android:layout_centerInParent="true"
+
+        />
+
+    <RelativeLayout
+        android:id="@+id/r"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/profile_img"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            android:layout_below="@+id/profile_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text=" click to choose your profile pic "
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#4dd0e1"
+
+            />
+
+    </RelativeLayout>
+
+<LinearLayout
+    android:layout_below="@+id/r"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:met_baseColor="@android:color/white"
+        app:met_errorColor="#ed7979"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelTextSize="17sp"
+        app:met_singleLineEllipsis="true" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:met_floatingLabel="highlight"
+        app:met_baseColor="@android:color/white"
+        app:met_errorColor="#ed7979"
+        app:met_singleLineEllipsis="true"
+        android:hint="phone"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        app:met_floatingLabelTextSize="17sp"
+        android:textSize="20sp"
+        android:id="@+id/user_phone"
+        android:inputType="number"
+        />
+
+    <info.hoang8f.widget.FButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/start"
+        android:text="Start"
+        android:textColor="@android:color/white"
+        android:shadowColor="@android:color/black" />
+
+
+
+</LinearLayout>
+
+
+
+
+</RelativeLayout>

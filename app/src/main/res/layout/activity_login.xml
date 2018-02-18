@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/my_bg"
+    tools:context="com.example.hossam1.foodapp.login">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo_eat_it"
+        />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/pro_bar_login"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+
+        >
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            app:met_floatingLabel="highlight"
+            app:met_baseColor="@android:color/white"
+            app:met_errorColor="#ed7979"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            app:met_floatingLabelTextSize="17sp"
+            android:id="@+id/login_Email"
+            app:met_singleLineEllipsis="true"
+            android:inputType="textEmailAddress"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:met_floatingLabel="highlight"
+            app:met_baseColor="@android:color/white"
+            app:met_errorColor="#ed7979"
+            app:met_singleLineEllipsis="true"
+            android:hint="Password"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            app:met_floatingLabelTextSize="17sp"
+            android:textSize="20sp"
+            android:id="@+id/login_pass"
+            android:inputType="textPassword"
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <info.hoang8f.widget.FButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/login"
+        android:text="Login"
+        android:textSize="15sp"
+
+
+        android:textColor="@android:color/white"
+        android:shadowColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/text_signup"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Didn't have account ? sign up now"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
