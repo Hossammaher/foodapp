@@ -99,6 +99,10 @@ public class login extends AppCompatActivity {
                             startActivity(new Intent(login.this,Home.class));
                             finish();
                         }
+                        else{
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(login.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 

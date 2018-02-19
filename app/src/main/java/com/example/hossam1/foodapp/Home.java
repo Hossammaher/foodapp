@@ -2,6 +2,7 @@ package com.example.hossam1.foodapp;
 
 import android.content.Intent;
 import android.icu.util.ULocale;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -38,26 +39,26 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseAuth auth ;
+    FirebaseAuth auth;
     DatabaseReference databse_category;
-    TextView curent_user_name ;
-    RecyclerView recyclerView ;
+    TextView curent_user_name;
+    RecyclerView recyclerView;
     CircleImageView profile_image;
-    FirebaseRecyclerAdapter<category,menu_viewholder> adapter;
+    FirebaseRecyclerAdapter<category, menu_viewholder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        curent_user_name=findViewById(R.id.currentuser_name);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-        profile_image=findViewById(R.id.profile_image);
 
-        auth=FirebaseAuth.getInstance();
-        databse_category= FirebaseDatabase.getInstance().getReference("category");
+
+        auth = FirebaseAuth.getInstance();
+        databse_category = FirebaseDatabase.getInstance().getReference("category");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +78,29 @@ public class Home extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerview = navigationView.getHeaderView(0);
-        recyclerView=findViewById(R.id.recyclerview);
+        curent_user_name = headerview.findViewById(R.id.currentuser_name);
+        profile_image = headerview.findViewById(R.id.profile_image);
+
+
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+           DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+            reference.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String name = dataSnapshot.getValue(users.class).getName();
+                    Toast.makeText(Home.this, "Welcome "+name, Toast.LENGTH_SHORT).show();
+                    curent_user_name.setText(name);
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         load_pic_recycler();
@@ -86,27 +109,27 @@ public class Home extends AppCompatActivity
 
     private void load_pic_recycler() {
 
-         adapter = new FirebaseRecyclerAdapter<category, menu_viewholder>
-                        (category.class,R.layout.menu_item,menu_viewholder.class,databse_category) {
+        adapter = new FirebaseRecyclerAdapter<category, menu_viewholder>
+                (category.class,R.layout.menu_item,menu_viewholder.class,databse_category) {
+            @Override
+            protected void populateViewHolder(menu_viewholder viewHolder, final category model, int position) {
+
+                viewHolder.Name.setText(model.getName());
+                Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.Image);
+                final category clickitem = model;
+
+                viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
-                    protected void populateViewHolder(menu_viewholder viewHolder, final category model, int position) {
+                    public void onclick(View view, int position, Boolean isLongClick) {
 
-                        viewHolder.Name.setText(model.getName());
-                        Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.Image);
-                        final category clickitem = model;
+                        Intent intent = new Intent(Home.this, Food.class);
+                        intent.putExtra("ctegoryid", adapter.getRef(position).getKey());
+                        startActivity(intent);
 
-                        viewHolder.setItemClickListener(new ItemClickListener() {
-                            @Override
-                            public void onclick(View view, int position, Boolean isLongClick) {
-
-                                Intent intent =new Intent(Home.this,Food.class);
-                                intent.putExtra("ctegoryid",adapter.getRef(position).getKey());
-                                startActivity(intent);
-
-                            }
-                        });
                     }
-                };
+                });
+            }
+        };
         recyclerView.setAdapter(adapter);
     }
 
@@ -156,13 +179,15 @@ public class Home extends AppCompatActivity
 
         } else if (id == R.id.nav_signout) {
 
+            FirebaseAuth.getInstance().signOut();
+            finish();
+            startActivity(new Intent(Home.this, MainActivity.class));
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-   }
-
-
+    }
 
 }

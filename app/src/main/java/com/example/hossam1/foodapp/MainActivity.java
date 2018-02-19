@@ -8,10 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     Button signin , signup;
     TextView solgn ;
+    FirebaseAuth mAuth ;
 
 
     @Override
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         signin=findViewById(R.id.signin);
         signup=findViewById(R.id.signup);
         solgn=findViewById(R.id.solgn);
+        mAuth=FirebaseAuth.getInstance();
         Typeface typeface = Typeface.createFromAsset(getAssets(),"fonts/Nabila.ttf");
         solgn.setTypeface(typeface);
 
@@ -46,5 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser()!=null){
+            finish();
+            startActivity(new Intent(MainActivity.this,Home.class));
+        }
+
     }
 }
